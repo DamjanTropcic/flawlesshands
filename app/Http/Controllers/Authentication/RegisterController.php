@@ -16,6 +16,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
+use Illuminate\Auth\Events\Registered;
+
 class RegisterController extends Controller
 {
     public function register(Request $request): RedirectResponse
@@ -33,6 +35,8 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        event(new Registered($user));
 
         Auth::login($user);
 
