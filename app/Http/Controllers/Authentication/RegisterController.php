@@ -1,5 +1,12 @@
 <?php
 
+/*
+*
+*   Author: Damjan Tropcic
+*   Description: Controller for handling user registration.
+*
+*/
+
 namespace App\Http\Controllers\Authentication;
 
 use App\Http\Controllers\Controller;

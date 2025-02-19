@@ -1,5 +1,12 @@
 <?php
 
+/*
+*
+*   Author: Damjan Tropcic
+*   Description: Controller for handling user login and logout.
+*
+*/
+
 namespace App\Http\Controllers\Authentication;
 
 use App\Http\Controllers\Controller;
@@ -34,6 +41,6 @@ class LoginController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect()->route('welcome')->with('logout_success_message', 'You have been logged out successfully.');
+        return redirect()->route('home')->with('logout_success_message', 'You have been logged out successfully.');
     }
 }

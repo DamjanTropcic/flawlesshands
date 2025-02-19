@@ -2,23 +2,21 @@
 
 use App\Http\Controllers\Authentication\LoginController;
 use App\Http\Controllers\Authentication\RegisterController;
-use App\Http\Controllers\UserController;
 use App\Http\Middleware\EnsureUserIsAuthenticated;
 use Illuminate\Support\Facades\Route;
-use App\Models\User;
 
 
 Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+    return view('home');
+})->name('home');
 
 //Authentication routes
 Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
-Route::get('/signup', function () {
+Route::get('/register', function () {
     return view('auth.register');
-})->name('signup');
+})->name('register');
 
 Route::post('login', [LoginController::class, 'authenticate'])->name('login');
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
