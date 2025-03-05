@@ -36,6 +36,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
+        //This is an event needed for manual triggering of the email verification process
         event(new Registered($user));
 
         Auth::login($user);
