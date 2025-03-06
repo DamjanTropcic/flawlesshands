@@ -2,14 +2,22 @@
 
 use App\Http\Controllers\Authentication\LoginController;
 use App\Http\Controllers\Authentication\RegisterController;
+use App\Http\Controllers\Services\CategoryController;
+use App\Http\Controllers\Services\ServiceController;
 use App\Http\Middleware\EnsureUserIsAuthenticated;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 
+//Public routes
 Route::get('/', function () {
     return view('home');
 })->name('home');
+
+Route::get('services', [ServiceController::class, 'index'])->name('services.index');
+Route::get('services/{service}', [ServiceController::class, 'show'])->name('services.show');
+
+Route::resource('categories', CategoryController::class);
 
 //Authentication routes
 Route::get('/login', function () {
@@ -35,9 +43,12 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
 
-//Auth protected routes
+
+//Routes protected by the user authorization middleware
 Route::middleware([EnsureUserIsAuthenticated::class])->group(function(){
     Route::get('/protected', function () {
         return view('protected');
     })->name('protected');
+
+    Route::resource('services', ServiceController::class)->except(['index', 'show']);
 });
